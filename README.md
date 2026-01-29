@@ -1,4 +1,6 @@
-# 🎰 BlackJack Game - Web-Based Card Game
+# BlackJack Game - Web-Based Card Game
+
+One of my first websites
 
 A fully functional BlackJack card game built with vanilla JavaScript and Bootstrap, featuring object-oriented design, interactive gameplay, audio feedback, and chip management system.
 
@@ -10,7 +12,7 @@ A fully functional BlackJack card game built with vanilla JavaScript and Bootstr
 
 ---
 
-## 📋 Project Overview
+## Project Overview
 
 **BlackJack Game** is an interactive web-based implementation of the classic casino card game. The project demonstrates professional web development practices with:
 
@@ -28,7 +30,7 @@ Create an engaging, fully-functional BlackJack game that combines entertainment 
 
 ---
 
-## 🎮 Game Rules & Objectives
+## Game Rules & Objectives
 
 ### Basic Rules
 
@@ -58,76 +60,6 @@ Create an engaging, fully-functional BlackJack game that combines entertainment 
 - **Dealer Rules**: Dealer must hit on 16 or less, must stand on 17 or more
 
 ---
-
-## 🏗️ Architecture
-
-### System Architecture
-
-```
-┌─────────────────────────────────────────────┐
-│        HTML INTERFACE (blackjack_oop.html)  │
-├─────────────────────────────────────────────┤
-│  • Game Board Display                       │
-│  • Dealer Area (Cards)                      │
-│  • Player Area (Cards)                      │
-│  • Control Buttons (Hit, Stand, etc.)      │
-│  • Betting Interface (Range Slider)         │
-│  • Status Display (Chips, Messages)         │
-└──────────────┬──────────────────────────────┘
-               │
-      ┌────────┴────────┐
-      ▼                 ▼
-┌──────────────┐  ┌──────────────────────┐
-│ CSS Styling  │  │ JavaScript Logic     │
-│(maiscss.css) │  │                      │
-│              │  ├──────────────────────┤
-│ • Colors     │  │ blackjack_object.js  │
-│ • Animations │  │ (Game Logic Class)   │
-│ • Layout     │  │                      │
-│ • Effects    │  │ blackjack_manager.js │
-└──────────────┘  │ (Game Manager)       │
-                  └──────────────────────┘
-                           │
-                           ▼
-                  ┌─────────────────────┐
-                  │  Game State Engine  │
-                  ├─────────────────────┤
-                  │ • Card Deck         │
-                  │ • Player Hand       │
-                  │ • Dealer Hand       │
-                  │ • Game Status       │
-                  │ • Chip Management   │
-                  └─────────────────────┘
-```
-
-### Class Structure
-
-```
-BlackJack (Game Logic Class)
-├─ Constructor
-│  ├─ dealerCards (array)
-│  ├─ playerCards (array)
-│  ├─ dealerTurn (boolean)
-│  └─ state (game state object)
-│
-├─ Card Management
-│  ├─ newDeck() → Creates 4 suits × 13 cards
-│  └─ shuffle(deck) → Fisher-Yates shuffle
-│
-├─ Game Logic
-│  ├─ getCardsValue(cards) → Calculate hand value
-│  ├─ dealerMove() → Dealer draws card
-│  ├─ playerMove() → Player draws card
-│  └─ getGameState() → Check win/loss conditions
-│
-├─ Getters
-│  ├─ getDealerCards() → Return dealer's cards
-│  ├─ getPlayerCards() → Return player's cards
-│  └─ getGameState() → Return current state
-│
-└─ Setters
-   └─ setDealerTurn(boolean) → Set dealer turn flag
-```
 
 ### File Structure
 
@@ -167,7 +99,7 @@ BlackJack Project/
 
 ---
 
-## 💻 Technology Stack
+## Technology Stack
 
 ### Frontend Technologies
 
@@ -205,17 +137,13 @@ BlackJack Project/
 - Icons (money bill, question circle, arrow down, plus)
 - Visual feedback and navigation
 
-**Google Fonts**
-- Poppins font family
-- Professional typography
-
 **jQuery** (included via Bootstrap)
 - DOM utilities
 - Event handling (Popovers for rules)
 
 ---
 
-## 🎲 Game Mechanics & Features
+## Game Mechanics & Features
 
 ### Chip Management System
 
@@ -226,19 +154,6 @@ BlackJack Project/
 - Minimum bet: 10 chips
 - Maximum bet: Current chip total
 - Last bet remembered for convenience
-
-**Chip Flow**:
-```
-New Game: chips = 10,000
-  ↓
-Place Bet: chips -= bet
-  ↓
-Win Round: chips += (bet × 2)
-  ↓
-Lose Round: chips -= 0 (already deducted)
-  ↓
-Game Reset: chips = 10,000 (if < 10 chips)
-```
 
 ### Card Deck System
 
@@ -304,7 +219,7 @@ Initial → Place Bet → Deal Cards → Player Turn →
 Dealer Turn → Evaluate → Game Over
 ```
 
-### Dealer AI
+### Dealer
 
 **Dealer Logic**:
 1. Reveals hidden card after player finishes
@@ -320,102 +235,6 @@ while (!dealerBusted && dealerPoints < 17) {
   dealerPoints = getCardsValue(dealerCards);
 }
 ```
-
----
-
-## 🎛️ User Interface Components
-
-### Game Board Layout
-
-**Left Column (Dealer)**:
-```
-┌─────────────────────┐
-│  DEALER             │
-├─────────────────────┤
-│  [Card] [Card Back] │
-│  [Card] [Card]      │
-│  [Card] [Card]      │
-└─────────────────────┘
-```
-
-**Center Column (Controls)**:
-```
-┌─────────────────────┐
-│   DECK              │
-├─────────────────────┤
-│  [HIT Button]       │
-│  [STAND Button]     │
-│  [CHECK BET Button] │
-│  [NEW GAME Button]  │
-└─────────────────────┘
-```
-
-**Right Column (Player)**:
-```
-┌─────────────────────┐
-│  PLAYER             │
-├─────────────────────┤
-│  [Card] [Card]      │
-│  [Card] [Card]      │
-│  [Card] [Card]      │
-└─────────────────────┘
-```
-
-**Bottom (Betting)**:
-```
-┌─────────────────────────────────┐
-│ Bet: [═══════●═════]   0 chips  │
-│ [Check Bet]                     │
-│ Status: "You have 10,000 chips" │
-└─────────────────────────────────┘
-```
-
-### Control Buttons
-
-**HIT Button**:
-- Draws one card from deck
-- Adds to player's hand
-- Updates hand value
-- Checks for bust
-- Disabled during dealer turn
-
-**STAND Button**:
-- Completes player's turn
-- Initiates dealer turn
-- Dealer automatically plays
-- Evaluates final hands
-- Determines winner
-
-**CHECK BET Button**:
-- Confirms betting amount
-- Enables game start
-- Shows bet range validation
-- Disabled until new game
-
-**NEW GAME Button**:
-- Resets game state
-- Clears all cards
-- Resets chip count (if needed)
-- Re-enables betting
-- Allows betting configuration
-
-### Status Display
-
-**Dealer Section**:
-- Cards with suits (♠, ♣, ♥, ♦)
-- Card count/value
-- Status message after game
-
-**Player Section**:
-- Cards with suits
-- Card count/value
-- Status message (win/loss/bust)
-
-**Chip Display**:
-- Current chip total
-- Last bet (for reference)
-- Bet amount (0-10,000)
-- Bet status message
 
 ---
 
@@ -442,100 +261,6 @@ let sndLose = new Audio("music/gameOver.wav");
 sndWin.play();  // Play sound effect
 ```
 
----
-
-## 🎨 Visual Design
-
-### Color Scheme
-
-**Primary Colors**:
-- **Green**: Game table background
-- **Red/Brown**: Button backgrounds
-- **Gold/Warning**: Text highlights
-- **White**: Cards and text
-
-**Button Styling**:
-- Background: RGB(179, 42, 18) - Burnt orange
-- Text: Floral white
-- Hover: #2196F3 - Electric blue
-- Glow effect on hover (box-shadow)
-
-**Card Styling**:
-- White background
-- Rounded corners (5px)
-- 2px border (top/left)
-- Outset style (3D effect)
-- ~90px max-width
-
-### Animations
-
-**Hover Effects**:
-- Buttons: Color change + glow
-- Question mark: Gold color
-- Cards: Slight raise/shadow
-
-**Whiskey Glass**:
-- Shake animation on hover
-- 0.5s duration
-- Infinite loop
-- Rotation + translation
-
-**Bootstrap Responsiveness**:
-- Mobile-friendly design
-- Grid system auto-adjustment
-- Touch-friendly buttons
-
----
-
-## 🎯 Game Flow & User Experience
-
-### Complete Game Cycle
-
-```
-1. PAGE LOAD
-   └─ New Game initialized
-   └─ Deck created and shuffled
-   └─ Betting interface enabled
-
-2. BETTING PHASE
-   ├─ Player selects bet amount (range slider)
-   ├─ Player clicks "Check Bet"
-   ├─ Bet validated
-   └─ Initial cards dealt
-
-3. PLAYER TURN
-   ├─ Player sees own cards
-   ├─ Dealer's first card hidden (CardBack.jpg)
-   ├─ Player clicks "Hit" or "Stand"
-   ├─ If Hit → Draw card, check bust, repeat
-   ├─ If Stand → Player turn ends
-   └─ Game moves to dealer turn
-
-4. DEALER TURN
-   ├─ Hidden card revealed
-   ├─ Dealer automatically plays
-   │  ├─ If hand < 17 → Hit
-   │  ├─ If hand >= 17 → Stand
-   │  └─ Repeat until stand or bust
-   └─ Game evaluates winner
-
-5. RESULT PHASE
-   ├─ Compare hands
-   ├─ Determine winner
-   ├─ Update chip total
-   ├─ Play sound effect
-   ├─ Display result message
-   └─ Show cards and final values
-
-6. NEW GAME PHASE
-   ├─ Player reviews results
-   ├─ Clicks "New Game"
-   ├─ Deck reshuffled
-   ├─ Betting interface reset
-   ├─ Chip count reset (if < 10)
-   └─ Return to Betting Phase
-```
-
 ### Win/Loss Conditions
 
 **Player Wins** (chips += bet × 2):
@@ -554,7 +279,7 @@ sndWin.play();  // Play sound effect
 
 ---
 
-## 🧪 Code Structure & Implementation
+##  Code Structure & Implementation
 
 ### BlackJack Class (blackjack_object.js)
 
@@ -655,24 +380,7 @@ let lastBet = 0;                  // Previous bet
 
 ---
 
-## 📊 Game Statistics
-
-| Metric | Value |
-|---|---|
-| Starting Chips | 10,000 |
-| Minimum Bet | 10 chips |
-| Card Deck | Single 52-card deck |
-| Suits | 4 (Spades, Hearts, Diamonds, Clubs) |
-| Ranks | 13 per suit (A-K) |
-| Max Hand Value | 21 (BlackJack) |
-| Dealer Stand Value | 17+ |
-| Win Payout | 2× bet |
-| Loss Cost | bet |
-| Code Files | 2 JS + 1 HTML + 1 CSS |
-
----
-
-## 🎓 Learning Outcomes
+## Learning Outcomes
 
 ### JavaScript Concepts Demonstrated
 
@@ -720,7 +428,7 @@ let lastBet = 0;                  // Previous bet
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### Prerequisites
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -747,7 +455,7 @@ let lastBet = 0;                  // Previous bet
 2. **Open in Browser**:
    - Double-click `blackjack_oop.html`
    - Or right-click → Open with Browser
-   - Or via local server (recommended)
+   - Or via local server
 
 3. **Start Playing**:
    - Page loads with new game
@@ -755,91 +463,19 @@ let lastBet = 0;                  // Previous bet
    - Click "Check Bet" to start
    - Click "Hit" or "Stand" to play
    - Click "New Game" for next round
-
-### Local Server (Optional)
-
-**Using Python**:
-```bash
-# Python 3
-python -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-```
-
-**Using Node.js**:
-```bash
-npx http-server
-```
-
-Access at: `http://localhost:8000/blackjack_oop.html`
-
----
-
-## 🐛 Known Limitations & Future Improvements
-
-### Current Limitations
-
-⚠ Single deck (no shoe/multi-deck)  
-⚠ No insurance bet  
-⚠ No split functionality  
-⚠ No double down  
-⚠ No persistence (chip data lost on refresh)  
-⚠ No multiplayer support  
-⚠ No game history/statistics tracking  
-⚠ Audio files must be in music/ folder  
-
-### Potential Enhancements
-
-**Short-term**:
-- [ ] LocalStorage for chip persistence
-- [ ] Game statistics (wins/losses/profit)
-- [ ] Sound toggle option
-- [ ] Difficulty levels (dealer behavior)
-- [ ] Keyboard controls (spacebar for Hit, etc.)
-
-**Medium-term**:
-- [ ] Split hand functionality
-- [ ] Double down option
-- [ ] Insurance bet
-- [ ] Multiple decks/shoe
-- [ ] Chip animations
-- [ ] Better dealer AI
-
-**Long-term**:
-- [ ] Multiplayer (WebSocket)
-- [ ] Tournament mode
-- [ ] Leaderboard system
-- [ ] Progressive betting strategies
-- [ ] Mobile app version
-- [ ] Real-time multiplayer
-
----
-
-## 📚 File Details
-
-| File | Size | Purpose |
-|---|---|---|
-| blackjack_oop.html | 8.4 KB | Main game interface |
-| blackjack_object.js | 4.1 KB | Game logic class |
-| blackjack_manager.js | 7.5 KB | Game manager & UI |
-| maiscss.css | 1.8 KB | Custom styling |
-
-**Total**: ~21.8 KB (very lightweight)
-
 ---
 
 ## 🎯 Conclusion
 
 This BlackJack game successfully demonstrates:
 
-✅ **Professional Web Development**
+✅ **Web Development**
 - Clean, organized code structure
 - Object-oriented design principles
 - Responsive, visually appealing UI
 - Complete game implementation
 
-✅ **JavaScript Mastery**
+✅ **JavaScript**
 - ES6+ class syntax
 - DOM manipulation
 - Event handling
@@ -851,30 +487,6 @@ This BlackJack game successfully demonstrates:
 - Audio-visual effects
 - Smooth gameplay
 
-The project serves as both an educational tool for learning JavaScript and a fully functional, entertaining casino game. It demonstrates how to build complex interactive applications using vanilla JavaScript and modern web technologies.
+The project serves as both an educational tool for learning JavaScript and a fully functional, entertaining casino game. It demonstrates how to build interactive applications using vanilla JavaScript and modern web technologies.
 
----
-
-## 👤 Author
-
-**Created**: January 29, 2026  
-**Status**: Complete & Playable  
-**License**: Open Source  
-
----
-
-## 🔗 Related Files
-
-- HTML Interface: `blackjack_oop.html`
-- Game Logic: `blackjack_object.js`
-- Game Manager: `blackjack_manager.js`
-- Styling: `maiscss.css`
-
----
-
-## 🎲 Have Fun!
-
-Experience the thrill of BlackJack with this professional web-based implementation. Challenge the dealer, manage your chips strategically, and test your luck!
-
-**Good luck at the tables! 🍀**
 
