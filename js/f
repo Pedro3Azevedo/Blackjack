@@ -1,0 +1,254 @@
+// pcm 20172018a Blackjack oop
+
+let game = null;
+let player_chips_start = 10000;
+let player_chips_total = player_chips_start;
+
+//let player_chips_total = 0;
+
+
+function buttons_initialization() {
+    document.getElementById("card").disabled = false;
+    document.getElementById("stand").disabled = false;
+    document.getElementById("new_game").disabled = false;//true
+}
+
+function finalize_buttons() {
+    document.getElementById("card").disabled = true;
+    document.getElementById("stand").disabled = true;
+    document.getElementById("new_game").disabled = false;//false
+}
+
+
+//FUNÇÕES QUE DEVEM SER IMPLEMENTADOS PELOS ALUNOS
+function new_game() {
+
+    /*  if(player_chips_total == 0){
+          window.open("popup.html", "_blank", "location=yes,height=200,width=300,scrollbars=yes,status=yes");
+      }*/
+    //instancia de blackjack
+    game = new BlackJack();
+
+    //debug(game.deck);
+    document.getElementById("cardD1").src = "";
+
+    document.getElementById("cardD3").src = "";
+    document.getElementById("cardD4").src = "";
+    document.getElementById("cardD5").src = "";
+    document.getElementById("cardD6").src = "";
+    document.getElementById("cardD7").src = "";
+    document.getElementById("cardD8").src = "";
+
+    document.getElementById("cardP1").src = "";
+    document.getElementById("cardP2").src = "";
+    document.getElementById("cardP3").src = "";
+    document.getElementById("cardP4").src = "";
+    document.getElementById("cardP5").src = "";
+    document.getElementById("cardP6").src = "";
+    document.getElementById("cardP7").src = "";
+    document.getElementById("cardP8").src = "";
+    let str = (".");
+    document.getElementById("dealer").innerHTML = JSON.stringify(str);
+    document.getElementById("player").innerHTML = JSON.stringify(str);
+
+    //jogada Dealer
+
+    dealer_new_card();
+    dealer_new_card();
+    document.getElementById("cardD2").src = "imgs/Card_Back.jpg";
+    game.setDealerTurn(false);
+    //debug2(game.deck);
+    //jogada player
+
+    player_new_card();
+    player_new_card();
+
+    player_bet(player_chips_total);
+
+    buttons_initialization();
+
+    //debug(game);
+
+    //debugP(game.get_player_cards())
+    let cardsH = game.get_dealer_cards()
+    //debugD(cardsH[0] + ", X")
+
+}
+
+function player_bet(max) {
+
+}
+
+
+function give_more_chips() {
+    player_chips_total = player_chips_start;
+    window.close();
+}
+
+function update_dealer(state) {
+
+    let stringD = "Dealer";
+    let stringP = "";
+    let cardsD = game.get_dealer_cards();
+
+    if (state.gameEnded) { //verifica se o jogo acabou
+        //verifica se o dealer ganhou
+        let dealerState = state.dealerWon;
+
+        if (dealerState) {
+            //constroi uma string
+            stringD = "Delaer: Ganhou - " + game.get_cards_value(cardsD);
+            stringP = "Player: Perdeu";
+
+        } else {
+            //constroi uma string
+            stringD = "Dealer: Perdeu - " + game.get_cards_value(cardsD);
+            stringP = "Player: Ganhou";
+        }
+
+        finalize_buttons();
+    }
+    let baralho;
+    let num = 1;
+    for (let index = 0; index < cardsD.length; index++) {
+        if (cardsD[index][1] == 1) {
+            baralho = "espadas";
+        }
+        if (cardsD[index][1] == 2) {
+            baralho = "copas";
+        }
+        if (cardsD[index][1] == 3) {
+            baralho = "ouros";
+        }
+        if (cardsD[index][1] == 4) {
+            baralho = "paus";
+        }
+        let string1 = "imgs/cartas/" + baralho + "/" + cardsD[index][0] + ".png";
+        let card = "cardD" + num;
+
+        document.getElementById(card).src = string1;
+        num++;
+    }
+
+
+
+    document.getElementById("dealer").innerHTML = JSON.stringify(stringD);
+    document.getElementById("player").innerHTML = JSON.stringify(stringP);
+
+
+}
+
+function update_player(state) {
+
+    let string = "";
+    //pede as cartas ao player
+    let cardsP = game.get_player_cards();
+    stringP = "";
+    stringD = "Dealer";
+    let estado = state;
+    //debug2(estado);
+    if (estado.gameEnded) { //verifica se o jogo acabou
+        update_dealer(state);
+        //verifica se o dealer ganhou
+        let palyerState = !(estado.dealerWon);
+
+        if (palyerState) {
+            //constroi uma string
+            stringP = "Player: Ganhou - " + game.get_cards_value(cardsP);
+            stringD = "Dealer: Perdeu";
+
+        } else {
+            //constroi uma string
+            stringP = "Player: Perdeu - " + game.get_cards_value(cardsP);
+            stringD = "Dealer: Ganhou";
+        }
+
+        finalize_buttons();
+    }
+    newBackCard();
+    let baralho;
+    let num = 1;
+    let i;
+    for (let index = 0; index < cardsP.length; index++) {
+        if (cardsP[index][1] == 1) {
+            baralho = "espadas";
+        }
+        if (cardsP[index][1] == 2) {
+            baralho = "copas";
+        }
+        if (cardsP[index][1] == 3) {
+            baralho = "ouros";
+        }
+        if (cardsP[index][1] == 4) {
+            baralho = "paus";
+        }
+        let string1 = "imgs/cartas/" + baralho + "/" + cardsP[index][0] + ".png"
+        let card = "cardP" + num;
+        document.getElementById(card).src = string1;
+        num++;
+
+    }
+
+    if (!estado.gameEnded)
+        stringP = "Player: " + game.get_cards_value(cardsP);
+
+    document.getElementById("player").innerHTML = JSON.stringify(stringP);
+    document.getElementById("dealer").innerHTML = JSON.stringify(stringD);
+
+
+}
+
+function dealer_new_card() {
+
+    game.dealer_move();
+    let state = game.get_game_state();
+    update_dealer(state);
+    return state;
+
+}
+
+function player_new_card() {
+
+    game.player_move();
+    let state = game.get_game_state();
+   /* new_Back_Card()
+    cardMove("cardP" + game.get_player_cards().length);*/
+    update_player(state);
+
+    return state;
+
+}
+
+function dealer_finish() {
+    let state = game.get_game_state();
+    game.setDealerTurn(true);
+
+    while (state.gameEnded == false) {
+
+        //update_dealer();
+        dealer_new_card();
+        update_dealer(state);
+        state = game.get_game_state();
+        //debug2(state);
+    }
+
+}
+
+function new_Back_Card() {
+    var img = document.createElement('img');
+    img.src = "imgs/Card_Back1.jpeg";
+    img.id = "newBackCard";
+    img.class = "card"
+    img.x = document.getElementById("deckCard").x;
+    img.y = document.getElementById("deckCard").y;
+    document.getElementById("deckCard").appendChild(img);
+}
+
+function cardMove(card) {
+    let targetX = document.getElementById(card).x;
+    let targetY = document.getElementById(card).y;
+    let imgX = document.getElementById("newBackCard")
+    document.getElementById("newBackCard").style.top = targetX;
+    document.getElementById("newBackCard").style.left = targetY;
+}
+

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <script src="js/blackjack_object.js"></script>
+    <script src="js/blackjack_manager.js"></script>
+
+    <title>Black Jack</title>
+    <link rel="stylesheet" type="text/css" href="css/maiscss.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+          rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/bc6eddf77a.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body onload="new_game()">
+
+<header class="pt text-center">
+    <div><h2 class="text-warning"><i class="fas fa-money-bill-wave"></i>BlackJack <i class="fas fa-money-bill-wave"></i>
+    </h2></div>
+
+    <div>
+        <h2><i class="fas fa-question-circle" href="#" title="Rules" data-toggle="popover" data-placement="bottom"
+               data-content="The dealer gives the player two cards and two cards for himself, one of which is face down.
+            The goal is to beat the dealer.
+            And how? So, the player must have a higher score than the dealer, but cannot exceed 21!
+            Each card is worth its number, for example, 5 is worth 5 points, with the exception of the King, Queen and Jack, which are worth 10.
+            The Ace is worth either 1 or 11 depending on the total. If the sum of the cards when the value of the ace is 11 is greater than 21, then the ace is worth 1, otherwise it is worth 11.
+            If the player or the dealer exceeds 21 points, then he busted and lost!"></i></h2>
+
+    </div>
+
+</header>
+<section>
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="container-md table">
+
+                            <div class="row p-5 ">
+                                <div id="deck" class=" col-4 align-self-center">
+                                    <div class="row">
+                                        <button class="btn1" id="card" type="button" onclick="player_new_card()">
+                                            <i class="fas fa-plus"></i> Hit
+                                        </button>
+                                    </div>
+                                    <div class="row pt-2">
+                                        <button class="btn1" id="stand" type="button" onclick="dealer_finish()">
+                                            <i class="fas fa-arrow-down"></i>Stand
+                                        </button>
+                                    </div>
+                                    <div class="row pt-2">
+                                        <button class="btn1" id="checkBet" type="button" onclick="checkbet()">Check
+                                            Bet
+                                        </button>
+                                    </div>
+                                    <div class="row pt-2">
+                                        <button class="btn1" id="new_game" type="button" onclick="new_game()">New Game
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-6 ">
+                                    <div class="row ">
+                                        <div class="col">
+                                            <h2 id="dealer" class="text-warning">Dealer: </h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <img id="cardD1" src="">
+
+                                                <img id="cardD2" src="">
+
+                                                <img id="cardD3" src="">
+                                                <img id="cardD4" src="">
+                                            </div>
+
+                                            <div class="row">
+                                                <img id="cardD5" src="">
+                                                <img id="cardD6" src="">
+                                                <img id="cardD7" src="">
+                                                <img id="cardD8" src="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row p-5">
+                                <div class="col-4 align-self-center">
+                                    <img class="wiskey" src="imgs/wiskey.jpg" onmouseover="drink()">
+                                </div>
+
+                                <div class="col-6 ">
+                                    <div class="col">
+                                        <div class="row ">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <img id="cardP5" src="">
+                                                    <img id="cardP6" src="">
+                                                    <img id="cardP7" src="">
+                                                    <img id="cardP8" src="">
+                                                </div>
+
+                                                <div class="row">
+                                                    <img id="cardP1" src="">
+                                                    <img id="cardP2" src="">
+                                                    <img id="cardP3" src="">
+                                                    <img id="cardP4" src="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2 id="player" class="text-warning ">Player: </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <form>
+                                            <div class="form-group"></div>
+                                            <label for="customRange3"><h3 class="text-warning" id="bet"></h3></label>
+                                            <input type="range" class="form-range" min="0" max="5" step="0.5"
+                                                   id="customRange3" onInput="$('#rangeval').html($(this).val())">
+                                            <h3 class="text-warning"><span id="rangeval">0</span></h3>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+</body>
+
+<section>
+    <script> window.onload = new_game();</script>
+</section>
+
+
+</html>
